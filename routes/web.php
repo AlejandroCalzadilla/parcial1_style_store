@@ -6,7 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\EstadoPedidoController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\MarcaController;
-use App\Http\Controllers\PosicionController;
+
 use App\Http\Controllers\VehiculoController;
 use App\Http\Controllers\ParabrisaController;
 use App\Http\Controllers\ProveedorController;
@@ -31,9 +31,12 @@ use App\Http\Controllers\BitacoraController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
+Route::get('/', [AlmacenController::class, 'obtenerParabrisasConStock'])->name('catalogo');
+/*Route::get('/', function () {
+    return view('parabrisas.index2');
+});*/
 
 Route::middleware([
     'auth:sanctum',
@@ -44,6 +47,10 @@ Route::middleware([
         return view('dashboard');
     })->middleware('can:Ver dashboard')->name('dashboard');
 });
+
+
+
+
 
 //Para los roles
 Route::resource('roles', RoleController::class)->names('admin.roles');
@@ -83,13 +90,7 @@ Route::put('marca/{marca}', [MarcaController::class, 'update'])->name('admin.mar
 Route::delete('marca/{marca}', [MarcaController::class, 'destroy'])->name('admin.marca.destroy');
 //-------------------------------------------------------------------------------------------------------------------
 //Para la POSICION --------------------------------------------------------------------------------------------------
-Route::get('posicion', [PosicionController::class, 'index'])->name('admin.posicion.index');
-Route::get('posicion/create', [PosicionController::class, 'create'])->name('admin.posicion.create');
-Route::post('posicion', [PosicionController::class, 'store'])->name('admin.posicion.store');
-Route::get('posicion/{posicion}', [PosicionController::class, 'show'])->name('admin.posicion.show');
-Route::get('posicion/{posicion}/edit', [PosicionController::class, 'edit'])->name('admin.posicion.edit');
-Route::put('posicion/{posicion}', [PosicionController::class, 'update'])->name('admin.posicion.update');
-Route::delete('posicion/{posicion}', [PosicionController::class, 'destroy'])->name('admin.posicion.destroy');
+
 //Para los VEHICULOS ---------------------------------------------------------------------------------------------
 Route::get('vehiculo', [VehiculoController::class, 'index'])->name('admin.vehiculo.index');
 Route::get('vehiculo/create', [VehiculoController::class, 'create'])->name('admin.vehiculo.create');
@@ -197,3 +198,10 @@ Route::delete('personal/{personal}', [PersonalController::class, 'destroy'])->na
 
 //PARA LA BITACORA
 Route::get('bitacora', [BitacoraController::class, 'index'])->name('bitacora.index');
+
+
+Route::get('home', function () {
+    return view('livewire.home');
+});
+
+

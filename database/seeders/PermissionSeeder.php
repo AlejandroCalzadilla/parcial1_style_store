@@ -67,10 +67,10 @@ class PermissionSeeder extends Seeder
 
         Permission::create(['name' => 'Administrar inventario']);//42
 
-        Permission::create(['name' => 'Listar parabrisa']);//43
-        Permission::create(['name' => 'Editar parabrisa']);//44
-        Permission::create(['name' => 'Crear parabrisa']);//45
-        Permission::create(['name' => 'Eliminar parabrisa']);//46
+        Permission::create(['name' => 'Listar producto']);//43
+        Permission::create(['name' => 'Editar producto']);//44
+        Permission::create(['name' => 'Crear producto']);//45
+        Permission::create(['name' => 'Eliminar producto']);//46
 
         Permission::create(['name' => 'Listar posicion']);//47
         Permission::create(['name' => 'Editar posicion']);//48
@@ -82,10 +82,13 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'Crear categoria']);//53
         Permission::create(['name' => 'Eliminar categoria']);//54
 
+
+
+        /*
         Permission::create(['name' => 'Listar marca']);//55
         Permission::create(['name' => 'Editar marca']);//56
         Permission::create(['name' => 'Crear marca']);//57
-        Permission::create(['name' => 'Eliminar marca']);//58
+        Permission::create(['name' => 'Eliminar marca']);//58*/
 
         Permission::create(['name' => 'Listar vehiculo']);//59
         Permission::create(['name' => 'Editar vehiculo']);//60

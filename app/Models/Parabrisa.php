@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Posicion;
-use App\Models\Vehiculo;
+
 use App\Models\Categoria;
 class Parabrisa extends Model
 {
@@ -16,13 +16,9 @@ class Parabrisa extends Model
     protected $table = 'parabrisas';//proviene de la rel muchos a muchos gpt-01
 
      //Relacion de uno a muchos inversa
-     public function posicion(){
-        return $this->BelongsTo(Posicion::class);
-    }
+    
     //Relacion de uno a muchos inversa
-    public function vehiculo(){
-        return $this->BelongsTo(Vehiculo::class);
-    }
+    
      //Relacion de uno a muchos inversa
      public function categoria(){
         return $this->BelongsTo(Categoria::class);

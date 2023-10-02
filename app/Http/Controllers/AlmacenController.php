@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Almacen;
 use App\Models\Bitacora;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use PDF;
 
 class AlmacenController extends Controller
@@ -20,6 +21,30 @@ class AlmacenController extends Controller
     {
         return view('almacen.index');
     }
+
+    public function index2()
+    {
+
+
+        $parabrisas =Almacen::all();
+        return view('almacen.index');
+    }
+
+
+    public function obtenerParabrisasConStock()
+    {
+        $parabrisas = DB::table('parabrisas')
+        ->select('parabrisas.id', 'parabrisas.titulo', 'parabrisas.imagen', 'parabrisas.color')
+        ->join('almacen_parabrisa', 'parabrisas.id', '=', 'almacen_parabrisa.parabrisa_id')
+        ->join('almacens', 'almacens.id', '=', 'almacen_parabrisa.almacen_id')
+        ->where('almacen_parabrisa.stock', '>', 0)
+        ->get();
+    
+        return view('parabrisas.index2', ['parabrisas' => $parabrisas]);
+    }
+
+
+
     public function generarPDF($id)
     {
         $almacen = Almacen::find($id);

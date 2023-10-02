@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'Style Store',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>Vidcla</b>SRL',
+    'logo' => '<b>Style</b>Store',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -427,7 +427,7 @@ return [
                     'can' => 'Listar compras',
                 ],
                 [
-                    'text' => 'Almacen',
+                    'text' => 'Sucursal',
                     'icon'    => 'fas fa-fw fa-cube',
                     'route'  => 'admin.almacen.index',
                     'active' => ['almacen*'], //extra para los botones sidevar relacionados
@@ -450,19 +450,13 @@ return [
             'can' => 'Administrar inventario',
             'submenu' => [
                 [
-                    'text' => 'Parabrisa',
+                    'text' => 'Producto',
                     'route'  => 'admin.parabrisa.index',
                     'icon'    => 'fas fa-fw fa-glass-whiskey',
                     'active' => ['parabrisa*'], //extra para los botones sidevar relacionados
-                    'can' => 'Listar parabrisa',
+                    'can' => 'Listar producto',
                 ],
-                [
-                    'text' => 'Posicion',
-                    'route'  => 'admin.posicion.index',
-                    'icon'    => 'fas fa-fw fa-glass-whiskey',
-                    'active' => ['posicion*'], //extra para los botones sidevar relacionados
-                    'can' => 'Listar posicion',
-                ],
+               
                 [
                     'text' => 'Categoria',
                     'route'  => 'admin.categoria.index',
@@ -471,20 +465,8 @@ return [
                     'can' => 'Listar categoria',
                 ],
 
-                [
-                    'text' => 'Marca',
-                    'icon'    => 'fas fa-fw fa-list-alt',
-                    'route'  => 'admin.marca.index',
-                    'active' => ['marca*'], //extra para los botones sidevar relacionados
-                    'can' => 'Listar marca',
-                ],
-                [
-                    'text' => 'Vehiculo',
-                    'icon'    => 'fas fa-fw fa-car',
-                    'route'  => 'admin.vehiculo.index',
-                    'active' => ['vehiculo*'], //extra para los botones sidevar relacionados
-                    'can' => 'Listar vehiculo',
-                ],
+                
+              
 
             ],
         ],

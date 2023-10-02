@@ -12,7 +12,7 @@
                 placeholder="Escriba un nombre ..." type="text">
         </div> --}}
         <div class="card-header">
-            <a class="btn btn-secondary" href="{{ route('admin.parabrisa.create') }}">NUEVO PARABRISA</a>
+            <a class="btn btn-secondary" href="{{ route('admin.parabrisa.create') }}">NUEVO PRODUCTO</a>
         </div>
 
         @if ($parabrisas->count())
@@ -20,16 +20,16 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>ID</th>                       
-                            {{-- en descripcion ira vehiculo con marca --}}
-                            <th>Descripcion</th>
-                     
-                            <th>Abajo</th>
-                            <th>Arriba</th>
-                            <th>Costado</th>
-                            <th>Medio</th>
                             
-                            <th>OBS</th>
+                     
+                            <th>ID</th>
+                            <th>TITULO</th>
+                            <th>DESCRIPCION</th>
+                            <th>FOTO</th>
+                            <th>MARCA</th>
+                            <th>precio</th>
+                            
+                            <th>detalles</th>
                             <th colspan="2"></th>
                         </tr>
                     </thead>
@@ -40,27 +40,25 @@
                                 <td>
                                     {{ $parabrisa->id }}
                                 </td>                            
-                                <td>
-                                    {{ $parabrisa->vehiculo->descripcion }} //
-                                    Año: {{ $parabrisa->vehiculo->año}} //
-                                    Marca: {{ $parabrisa->vehiculo->marca->nombre}}
-                                </td>
+                               
                               
                                 <td>
-                                    {{ $parabrisa->abajo }}
+                                    {{ $parabrisa->titulo}}
                                 </td>
                                 <td>
-                                    {{ $parabrisa->arriba }}
+                                    {{ $parabrisa->descripcion }}
+                                </td>
+                                
+                                <td>
+                                    {{ $parabrisa->marca}}
                                 </td>
                                 <td>
-                                    {{ $parabrisa->costado }}
+                                    {{ $parabrisa->color }}
                                 </td>
                                 <td>
-                                    {{ $parabrisa->medio }}
+                                    {{ $parabrisa->precio }}
                                 </td>
-                                <td>
-                                    {{ $parabrisa->observacion }}
-                                </td>
+                                
                                 {{-- para que el boton quede pegado a la derecha->width=10px --}}
                              
                                 <td width="10px">

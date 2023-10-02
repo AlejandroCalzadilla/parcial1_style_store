@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>VIDCLA SRL</title>
+        <title>Style Store SRL</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -18,11 +18,11 @@
         @livewireStyles
     </head>
     <body class="font-sans antialiased">
-        <x-banner />
+        {{-- <x-banner /> --}}
 
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @livewire('navigation-menu')
-
+        <div class="min-h-screen bg-gray-100 dark:bg-white">
+            {{-- @livewire('navigation-menu') --}}
+            @livewire('home')  
 
             <!-- Page Content -->
             <main class="pt-1">

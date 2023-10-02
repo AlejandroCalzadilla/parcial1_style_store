@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Editar PARABRISA</h1>
+    <h1>Editar Producto</h1>
 @stop
 
 @section('content')
@@ -71,18 +71,7 @@
 
         <div class="row">
             <div class="col-md-6">
-                <div class="form-group">
-                    {!! Form::label('posicion_id', 'Posición: ') !!}
-                    {!! Form::select('posicion_id', $posiciones->pluck('nombre', 'id'), null, [
-                        'class' => 'form-control' . ($errors->has('posicion_id') ? ' is-invalid' : ''),
-                        'placeholder' => 'Seleccione una posición...',
-                    ]) !!}
-                    @error('posicion_id')
-                        <span class="invalid-feedback">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
+               
 
                 <div class="form-group">
                     {!! Form::label('categoria_id', 'Categoría: ') !!}
@@ -98,20 +87,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6">
-                <div class="form-group">
-                    {!! Form::label('vehiculo_id', 'Vehículo: ') !!}
-                    {!! Form::select('vehiculo_id', $vehiculos->pluck('descripcion', 'id'), null, [
-                        'class' => 'form-control' . ($errors->has('vehiculo_id') ? ' is-invalid' : ''),
-                        'placeholder' => 'Seleccione un vehículo...',
-                    ]) !!}
-                    @error('vehiculo_id')
-                        <span class="invalid-feedback">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-            </div>
+           
         </div>
 
         <div class="row">

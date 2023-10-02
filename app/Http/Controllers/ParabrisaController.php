@@ -8,30 +8,43 @@ use App\Models\Parabrisa;
 use App\Models\Posicion;
 use App\Models\Vehiculo;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Cache\Store;
+use Illuminate\Support\Facades\Storage;
 
 class ParabrisaController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('can:Listar parabrisa')->only('index');
-        $this->middleware('can:Editar parabrisa')->only('edit', 'update');
-        $this->middleware('can:Crear parabrisa')->only('create', 'store');
-        $this->middleware('can:Eliminar parabrisa')->only('destroy');
+        $this->middleware('can:Listar producto')->only('index');
+        $this->middleware('can:Editar producto')->only('edit', 'update');
+        $this->middleware('can:Crear producto')->only('create', 'store');
+        $this->middleware('can:Eliminar producto')->only('destroy');
     }
     public function index()
     {
-        return view('parabrisas.index');
+        //echo "hola mundo";
+       // $parabrisas = Parabrisa::all();
+        return view('parabrisas.index',compact('parabrisas'));
     }
+    public function index2()
+    {
+        //echo "hola mundo";
+        $parabrisas = Parabrisa::all();
+        return view('parabrisas.index2',compact('parabrisas'));
+    }
+   
+    
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        $posiciones = Posicion::all();
+        
         $categorias = Categoria::all();
-        $vehiculos = Vehiculo::all();
-        return view('parabrisas.create', compact('posiciones','categorias','vehiculos'));
+        
+        return view('parabrisas.create', compact('categorias'));
     }
 
     /**
@@ -39,39 +52,43 @@ class ParabrisaController extends Controller
      */
     public function store(Request $request)
     {
+
+
+        
         // Validar los datos del formulario
         $validatedData = $request->validate([
             
-            'abajo' => 'required|string',
-            'arriba' => 'required|string',
-            'costado' => 'required|string',
-            'medio' => 'required|string',
-            'observacion' => 'nullable|string',
-            'posicion_id' => 'required|exists:posicions,id',
+            'titulo' => 'required|string',
+            'descripcion' => 'required|string',
+            'imagen'=>'required|image|max:2048',
+            'marca' => 'required|string',
+            'color' => 'required|string',
+            'detalle' => 'nullable|string',
+            'precio' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
             'categoria_id' => 'required|exists:categorias,id',
-            'vehiculo_id' => 'required|exists:vehiculos,id',
+            
         ]);
 
         // Crear una nueva instancia de Parabrisa y asignar los valores
         $parabrisa = new Parabrisa();
         
-        $parabrisa->abajo = $validatedData['abajo'];
-        $parabrisa->arriba = $validatedData['arriba'];
-        $parabrisa->costado = $validatedData['costado'];
-        $parabrisa->medio = $validatedData['medio'];
-        $parabrisa->observacion = $validatedData['observacion'];
-        $parabrisa->posicion_id = $validatedData['posicion_id'];
+        $parabrisa->titulo = $validatedData['titulo'];
+        $parabrisa->descripcion = $validatedData['descripcion'];
+        $parabrisa->marca = $validatedData['marca'];
+       
+        $imagenes=$request->file('imagen')->store('public/imagenes');
+        $parabrisa->imagen= Storage::url($imagenes);
+        $parabrisa->color = $validatedData['color'];
+        $parabrisa->detalle= $validatedData['detalle'];
+        $parabrisa->precio= $validatedData['precio'];      
         $parabrisa->categoria_id = $validatedData['categoria_id'];
-        $parabrisa->vehiculo_id = $validatedData['vehiculo_id'];
-
-        $parabrisa->descripcion = "abajo: " . $validatedData['abajo'] . ", arriba: " . $validatedData['arriba'] . ", costado: " . $validatedData['costado'] . ", medio: " . $validatedData['medio'];
-
+    
 
         // Guardar el nuevo parabrisa en la base de datos
         $parabrisa->save();
 
         $bitacora = new Bitacora();
-        $bitacora->accion = '+++CREAR PARABRISA';
+        $bitacora->accion = '+++CREAR ';
         $bitacora->fecha_hora = now();
         $bitacora->fecha = now()->format('Y-m-d');
         $bitacora->user_id = auth()->id();
@@ -79,7 +96,7 @@ class ParabrisaController extends Controller
         
         // Redireccionar a una página de éxito o mostrar un mensaje
         return redirect()->route('admin.parabrisa.index')->with('info', 'El nuevo PARABRISA se creo satisfactoriamente!');
-    
+         // return $imagen;
     }
 
     /**
@@ -95,10 +112,10 @@ class ParabrisaController extends Controller
      */
     public function edit(Parabrisa $parabrisa)
     {
-        $posiciones = Posicion::all();
+        
         $categorias = Categoria::all();
-        $vehiculos = Vehiculo::all();
-        return view('parabrisas.edit',compact('posiciones','categorias','vehiculos','parabrisa'));
+        
+        return view('parabrisas.edit',compact('categorias','parabrisa'));
     }
 
     /**
@@ -109,27 +126,33 @@ class ParabrisaController extends Controller
         // Validar los datos del formulario
         $validatedData = $request->validate([
             
-            'abajo' => 'required|string',
-            'arriba' => 'required|string',
-            'costado' => 'required|string',
-            'medio' => 'required|string',
-            'observacion' => 'nullable|string',
-            'posicion_id' => 'required|exists:posicions,id',
+            'titulo' => 'required|string',
+             'descripcion' => 'required|string',
+             'imagen'=>'required|image|max:2048',
+             'marca' => 'required|string',
+             'color' => 'required|string',
+             'detalle' => 'nullable|string',
+              
             'categoria_id' => 'required|exists:categorias,id',
-            'vehiculo_id' => 'required|exists:vehiculos,id',
+            'precio' => 'required|numeric',
+            
         ]);
+        
 
         
-        $parabrisa->abajo = $validatedData['abajo'];
-        $parabrisa->arriba = $validatedData['arriba'];
-        $parabrisa->costado = $validatedData['costado'];
-        $parabrisa->medio = $validatedData['medio'];
-        $parabrisa->observacion = $validatedData['observacion'];
-        $parabrisa->posicion_id = $validatedData['posicion_id'];
+        $parabrisa->titulo = $validatedData['titulo'];
+        $parabrisa->descripcion = $validatedData['descripcion'];
+        $imagenes=$request->file('imagen')->store('public/imagenes');
+        $parabrisa->imagen= $imagenes;
+        $parabrisa->marca = $validatedData['marca'];
+        $parabrisa->color = $validatedData['color'];
+        $parabrisa->detalle = $validatedData['detalle'];
+        $parabrisa->precio = $validatedData['precio'];
+       
         $parabrisa->categoria_id = $validatedData['categoria_id'];
-        $parabrisa->vehiculo_id = $validatedData['vehiculo_id'];
+        
 
-        $parabrisa->descripcion = "abajo: " . $validatedData['abajo'] . ", arriba: " . $validatedData['arriba'] . ", costado: " . $validatedData['costado'] . ", medio: " . $validatedData['medio'];
+     
 
         // Actualizando informacion
         $parabrisa->save();

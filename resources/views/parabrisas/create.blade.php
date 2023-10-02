@@ -3,23 +3,23 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Nuevo PARABRISA</h1>
+    <h1>Nuevo Producto</h1>
 @stop
 
 @section('content')
 <div class="card">
     <div class="card-body">
-        {!! Form::open(['route' => 'admin.parabrisa.store']) !!}
-
+         {!! Form::open(['route' => 'admin.parabrisa.store','method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+        {{-- <form action="{{ route('admin.parabrisa.store') }}" method="post" enctype="multipart/form-data">  --}}
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    {!! Form::label('abajo', 'Abajo: ') !!}
-                    {!! Form::text('abajo', null, [
-                        'class' => 'form-control' . ($errors->has('abajo') ? ' is-invalid' : ''),
-                        'placeholder' => 'Escriba la medida de abajo...',
+                    {!! Form::label('titulo', 'titulo: ') !!}
+                    {!! Form::text('titulo', null, [
+                        'class' => 'form-control' . ($errors->has('titulo') ? ' is-invalid' : ''),
+                        'placeholder' => 'Escriba el titulo del producto...',
                     ]) !!}
-                    @error('abajo')
+                    @error('titulo')
                         <span class="invalid-feedback">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -27,10 +27,10 @@
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('medio', 'Medio: ') !!}
-                    {!! Form::text('medio', null, [
-                        'class' => 'form-control' . ($errors->has('medio') ? ' is-invalid' : ''),
-                        'placeholder' => 'Escriba la medida del medio...',
+                    {!! Form::label('descripcion', 'descripcion: ') !!}
+                    {!! Form::text('descripcion', null, [
+                        'class' => 'form-control' . ($errors->has('descripcion') ? ' is-invalid' : ''),
+                        'placeholder' => 'Escriba la descripcion del producto...',
                     ]) !!}
                     @error('medio')
                         <span class="invalid-feedback">
@@ -41,49 +41,94 @@
             </div>
 
             <div class="col-md-6">
-                <div class="form-group">
-                    {!! Form::label('arriba', 'Arriba: ') !!}
-                    {!! Form::text('arriba', null, [
-                        'class' => 'form-control' . ($errors->has('arriba') ? ' is-invalid' : ''),
-                        'placeholder' => 'Escriba la medida de arriba...',
+                {{-- <div class="form-group">
+                    {!! Form::label('imagen', 'imagen: ') !!}
+                    {!! Form::file('imagen', null, [
+                        'class' => 'form-control' . ($errors->has('imagen') ? ' is-invalid' : ''),
+                        'placeholder' => 'Escriba la url de la imagen...',
+
+
+
+                        
                     ]) !!}
-                    @error('arriba')
+                    @error('imagen')
+                        <span class="invalid-feedback">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div> --}}
+
+
+
+                  <div class="form-group">
+                    {!! Form::label('imagen', 'imagen') !!}
+                    {!! Form::file('imagen', null, [
+                                    'class' => 'form-control' . ($errors->has('imagen') ? ' is-invalid' : ''),
+                                   
+                                    'accept' => 'image/*',
+                                   
+                                ]) !!}
+            
+                        @error('marca')
+                            <span class="invalid-feedback">
+                            <strong>{{ $message }}</strong>
+                                    </span>
+                        @enderror
+                </div>  
+
+                {{-- <label class="crear__label">imagen :
+                    <br>
+                   </label> 
+                     
+                        <input class="rounded-xl" type="file" name="imagen" id="" accept="image/*"
+        
+                            method="POST" enctype="multipart/form-data">
+                        @error('imagen')
+                          <small class="text-red-500">el archivo debe ser una imagen</small> 
+                            
+                        @enderror
+                   <br> --}}
+
+
+
+                {{-- <label class="crear__label">imagen :
+                    <br>
+                   </label> 
+                     
+                        <input class="rounded-xl" type="file" name="imagen" id="" accept="image/*">
+                        @error('imagen')
+                          <small class="text-red-500">el archivo debe ser una imagen</small> 
+                            
+                        @enderror
+                   <br>
+                   <br> --}}
+
+                <div class="form-group">
+                    {!! Form::label('marca', 'marca: ') !!}
+                    {!! Form::text('marca', null, [
+                        'class' => 'form-control' . ($errors->has('marca') ? ' is-invalid' : ''),
+                        'placeholder' => 'Escriba la marca del producto...',
+                    ]) !!}
+                    @error('marca')
                         <span class="invalid-feedback">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
                 </div>
 
-                <div class="form-group">
-                    {!! Form::label('costado', 'Costado: ') !!}
-                    {!! Form::text('costado', null, [
-                        'class' => 'form-control' . ($errors->has('costado') ? ' is-invalid' : ''),
-                        'placeholder' => 'Escriba la medida del costado...',
-                    ]) !!}
-                    @error('costado')
-                        <span class="invalid-feedback">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
+
+
+
+
+
+
+                
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-6">
-                <div class="form-group">
-                    {!! Form::label('posicion_id', 'Posición: ') !!}
-                    {!! Form::select('posicion_id', $posiciones->pluck('nombre', 'id'), null, [
-                        'class' => 'form-control' . ($errors->has('posicion_id') ? ' is-invalid' : ''),
-                        'placeholder' => 'Seleccione una posición...',
-                    ]) !!}
-                    @error('posicion_id')
-                        <span class="invalid-feedback">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-
+               
                 <div class="form-group">
                     {!! Form::label('categoria_id', 'Categoría: ') !!}
                     {!! Form::select('categoria_id', $categorias->pluck('nombre', 'id'), null, [
@@ -96,34 +141,74 @@
                         </span>
                     @enderror
                 </div>
+
+
             </div>
 
+
+            <div class="col-md-6">
+            <div class="form-group">
+                {!! Form::label('precio', 'precio: ') !!}
+                {!! Form::text('precio', null, [
+                    'class' => 'form-control' . ($errors->has('precio') ? ' is-invalid' : ''),
+                    'placeholder' => 'Escriba el precio del producto...',
+                ]) !!}
+                @error('precio')
+                    <span class="invalid-feedback">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            </div>
+
+           
+        </div>
+
+
+        <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    {!! Form::label('vehiculo_id', 'Vehículo: ') !!}
-                    {!! Form::select('vehiculo_id', $vehiculos->pluck('descripcion', 'id'), null, [
-                        'class' => 'form-control' . ($errors->has('vehiculo_id') ? ' is-invalid' : ''),
-                        'placeholder' => 'Seleccione un vehículo...',
+                    {!! Form::label('color', 'color: ') !!}
+                    {!! Form::text('color', null, [
+                        'class' => 'form-control' . ($errors->has('color') ? ' is-invalid' : ''),
+                        'placeholder' => 'Escriba el precio del producto...',
                     ]) !!}
-                    @error('vehiculo_id')
+                    @error('color')
                         <span class="invalid-feedback">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
                 </div>
-            </div>
-        </div>
+                </div>
+
+
+        </div>    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                    {!! Form::label('observacion', 'Observación: ') !!}
-                    {!! Form::textarea('observacion', null, [
-                        'class' => 'form-control' . ($errors->has('observacion') ? ' is-invalid' : ''),
+                    {!! Form::label('detalle', 'detalle: ') !!}
+                    {!! Form::textarea('detalle', null, [
+                        'class' => 'form-control' . ($errors->has('detalle') ? ' is-invalid' : ''),
                         'placeholder' => 'Escriba la observación...',
                         'rows' => 4,
                     ]) !!}
-                    @error('observacion')
+                    @error('detalle')
                         <span class="invalid-feedback">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -132,7 +217,11 @@
             </div>
         </div>
 
-        {!! Form::submit('Crear PARABRISA', ['class' => 'btn btn-primary mt-2']) !!}
+
+
+
+
+        {!! Form::submit('Crear Producto', ['class' => 'btn btn-primary mt-2']) !!}
 
         {!! Form::close() !!}
     </div>
